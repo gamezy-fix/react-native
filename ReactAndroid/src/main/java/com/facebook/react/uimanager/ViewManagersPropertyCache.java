@@ -107,17 +107,19 @@ import java.util.Map;
     public void updateShadowNodeProp(ReactShadowNode nodeToUpdate, Object value) {
       try {
         if (mIndex == null) {
-          SHADOW_ARGS[0] = getValueOrDefault(value, nodeToUpdate.getThemedContext());
-          mSetter.invoke(nodeToUpdate, SHADOW_ARGS);
-          Arrays.fill(SHADOW_ARGS, null);
+          Object[] local_SHADOW_ARGS = new Object[SHADOW_ARGS.length];
+          local_SHADOW_ARGS[0] = getValueOrDefault(value, nodeToUpdate.getThemedContext());
+          mSetter.invoke(nodeToUpdate, local_SHADOW_ARGS);
+          Arrays.fill(local_SHADOW_ARGS, null);
         } else {
-          SHADOW_GROUP_ARGS[0] = mIndex;
-          SHADOW_GROUP_ARGS[1] = getValueOrDefault(value, nodeToUpdate.getThemedContext());
-          mSetter.invoke(nodeToUpdate, SHADOW_GROUP_ARGS);
-          Arrays.fill(SHADOW_GROUP_ARGS, null);
+          Object[] local_SHADOW_GROUP_ARGS = new Object[SHADOW_GROUP_ARGS.length];
+          local_SHADOW_GROUP_ARGS[0] = mIndex;
+          local_SHADOW_GROUP_ARGS[1] = getValueOrDefault(value, nodeToUpdate.getThemedContext());
+          mSetter.invoke(nodeToUpdate, local_SHADOW_GROUP_ARGS);
+          Arrays.fill(local_SHADOW_GROUP_ARGS, null);
         }
       } catch (Throwable t) {
-        FLog.e(ViewManager.class, "Error while updating prop " + mPropName, t);
+        FLog.e(ViewManager.class, "Error while updating local prop " + mPropName, t);
         throw new JSApplicationIllegalArgumentException(
             "Error while updating property '"
                 + mPropName
